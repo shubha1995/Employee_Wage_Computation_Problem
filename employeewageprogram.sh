@@ -11,6 +11,7 @@ read -p "To number of working hour :" NUMBER_OF_WORKING_HOURS
 totalSalary=0
 totalEmployeeHours=0
 totalWorkingDays=0
+
 function getWorkHours()
 {
 	randomShiftCheck=$((RANDOM%3))
@@ -42,7 +43,7 @@ do
 	dailyWage[totalWorkingDays]=$(calculateWage $(getWorkHours))
 	totalEmployeeHours=$(($totalEmployeeHours + $(getWorkHours)))
 done
-
 totalWageOfMonth=$(($(calculateWage $totalEmployeeHours)))
+echo "Total wage :"$totaleWageOfMonth
 echo "Daily wages: ${dailyWage[@]}"
-echo "Total Wage:" $totalWageOfMonth
+echo "Day:${!dailyWage[@]}"
