@@ -1,41 +1,37 @@
 echo $"Welcome to EmployeeWage Computation Program"
 
-isPresent=1
-randomNumber=$((RANDOM%2))
-if [ $randomNumber -eq 	$isPresent ]
-then
-	echo "Employee Present"
-	echo "Enter choice: "
-	echo "1.Daily Employee"
-	echo "2.Part Time Employee"
-	read ch
-case "$ch" in
-	1) echo "To calculate Daily Employee Wage"
-		function calculateDailyEmployeeWae(){
-		read -p "Assume Wage per hour is :" isWagePerHour
-		read -p "To full day hours is :" isFullDayHour
-		read -p "To days in month :" isDaysinMonth
-		calculateEmployeeWage=$((isWagePerHour*isFullDayHour*isDaysinMonth))
-		echo "To calculate daily employee wage :" $calculateEmployeeWage
-		}
-		calculateDailyEmployeeWae
-			
-		;;
-	2)echo "To calculate part time Employee and wage"
-		function partTimeEmployeeAndWage(){
-		read -p "Assume Wage per hour is :" isWagePerHour "rupees"
-		read -p "To part time hour is :" isFullDayHour
-		read -p "To days in month :" isDaysinMonth
-		calculatePartTimeEmployeeWage=$((isWagePerHour*isFullDayHour*isDaysinMonth))
-		echo "To calculate part time employee and wage :" $calculatePartTimeEmployeeWage
-		}
-		partTimeEmployeeAndWage
-		;;
-		*)echo "No choice"
-		;;
-esac
+WAGE_PER_HOUR=20
+IS_FULL_TIME=2
+IS_PART_TIME=1
+EMPLOYEE_HOUR_FULLTIME=8
+EMPLOYEE_HOUR_PARTTIME=4
+read -p "To number of working day :" NUMBER_OF_WORKING_DAYS
+read -p "To number of working hours :" NUMBER_OF_WORKING_HOURS
 
-else
-   echo "Employee Absent"
- fi
+totalSalary=0
+totalEmployeeHours=0
+totalWorkingDays=0
 
+while [[ $totalEmployeeHours -le $NUMBER_OF_WORKING_HOURS &&
+			$totalWorkingDays -le $NUMBER_OF_WORKING_DAYS ]]
+do
+	((totalWorkingDays++))
+	randomShiftCheck=$((RANDOM%3))
+	case $randomShiftCheck in
+
+		$IS_FULL_TIME )
+			employeeHour=$((EMPLOYEE_HOUR_FULLTIME))
+			;;
+		$IS_PART_TIME )
+			employeeHour=$((EMPLOYEE_HOUR_PARTTIME))
+			;;
+		* )
+			employeeHour=0
+			;;
+	esac
+	totalEmployeeHours=$(($totalEmployeeHours + $employeeHour))
+	echo "To total employee hours :" $totalEmployeeHours	
+done
+
+totalWorkingWage=$(($totalEmployeeHours * $WAGE_PER_HOUR))
+echo $totalWorkingWage
